@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script src="http://connect.soundcloud.com/sdk-2.0.0.js"></script>
+<script src="https://cdn.firebase.com/js/client/2.2.5/firebase.js"></script>
+<script src="script.js"></script>
+</head>
+<body>
+
+<div data-role="page">
+  <div data-role="header">
+  <a href="#" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+  <h1>Flex</h1>
+</div>
+
+  <div id="player" align="center">
+    <img src=""></img> 
+    <h3>Song - Artist</h3>
+     <button id="start" onclick="load_sound()">play</button>
+   <button id="stop">pause/resume</button>
+         <!-- <a href="#" id="start">Start</a>
+     <a href="#" id="stop">Stop</a>-->
+     </div>
+  <ul data-role="listview">
+  <li>
+    <a href="#">
+    <img src="">
+    <h2>Song Choice #1</h2>
+    <p>Album - Artist</p>
+     <span class="ui-li-count">25</span></a>
+  </li>
+</ul> 
+<ul data-role="listview">
+  <li>
+    <a href="#">
+    <img src="">
+    <h2>Song Choice #1</h2>
+    <p>Album - Artist</p>
+     <span class="ui-li-count">25</span></a>
+  </li>
+</ul> 
+<ul data-role="listview">
+  <li>
+    <a href="#">
+    <img src="">
+    <h2>Song Choice #1</h2>
+    <p>Album - Artist</p>
+     <span class="ui-li-count">25</span></a>
+  </li>
+</ul> 
+<ul data-role="listview">
+  <li>
+    <a href="#">
+    <img src="">
+    <h2>Random Choice</h2>
+<span class="ui-li-count">25</span></a>
+  </li>
+</ul> 
+
+</body>
+
+<!--<script>
+		
+function load_sound(track_url) {             
+        SC.initialize({
+            client_id: 'e37f3c1f5f6ba94620a84468518dc09d'
+                });
+               //alert(track_url);
+                SC.get('/resolve', {url: track_url}, function(track) {
+                    //console.log("the track id is: " + track.id);
+                    SC.stream("/tracks/" + track.id, {volume:50 } , function(sound) {
+                        console.log(sound);
+                        is_playing = true;
+                        sound.play();
+                        document.getElementById("start").onclick = function(){  
+                            if(is_playing === false){
+                                sound.resume();
+                                is_playing = true;
+                            } else if(is_playing === true){
+                                sound.pause();
+                                is_playing = false;
+                            }   
+                        };
+
+                        document.getElementById("stop").onclick = function(){  
+                          sound.stop();
+                          load_sound("https://www.soundcloud.com/chancetherapper/chain-smoker");
+                        };
+
+
+                    });
+                    
+                    
+
+                });
+            }
+            
+           
+
+function playNextSound(){
+
+  load_sound("https://soundcloud.com/dancingastronaut/kygo-dillon-francis-feat-james-hersey-coming-over-original-mix");
+}
+                       
+		</script>-->
+</html>
