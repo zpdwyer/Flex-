@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script>
+    $(function(){
+            $("#FacebookLogin").click(function()          {
+                      var ref = new Firebase("https://<your-firebase-app>.firebaseio.com");
+                      ref.authWithOAuthPopup("facebook", function(error, authData)
+                                             {
+                                                if (error)
+                                                {
+                                                    console.log("Login Failed!", error);
+                                                }
+                                                else
+                                                {
+                                                console.log("Authenticated successfully with payload:", authData);
+                                                    if (authData && isNewUser) {
+                                                    ref.child("users").child(authData.uid).set({
+                                                                    provider: authData.provider,
+                                                                    name: getName(authData)
+                                                                                        });
+                                                    }
+                                             });
+                      });
+</script>
+</head>
+<body>
+
+<div data-role="page">
+  <div data-role="header">
+    <h1>Welcome To My Homepage</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+     <a href="#" id="FacebookLogin" data-role="button" data-theme="b">Login with Facebook</a>
+  </div>
+
+  <div data-role="footer">
+    <h1>Footer Text</h1>
+  </div>
+</div> 
+
+</body>
+</html>
