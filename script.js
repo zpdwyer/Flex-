@@ -26,7 +26,7 @@ function load_sound(playlist_url) {
                               {
                                 var track_ID = track_IDs.pop();
                                 //need to figure out how to randomly generate an index from 0 to however many elements the track_IDs stack contains. Then remove that track_id from the
-                                //track_IDs stack.
+                                //track_IDs stack. 
                               
                                 SC.stream('/tracks/' + track_ID, {volume:50, onfinish:is_playing=false}, function(sound)
                                     //soundcloud method to stream the selected song using the track_id
