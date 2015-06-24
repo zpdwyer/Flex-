@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--Importing Jquery Mobile API for GUI layout of mobile web application-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
 <script>
     $(function(){
+      //When application is first opened up Facebook login authentication popup screen appears
             $("#FacebookLogin").click(function()          {
                       var ref = new Firebase("https://<your-firebase-app>.firebaseio.com");
-                      ref.authWithOAuthPopup("facebook", function(error, authData)
+                                      //created new Firebase variable
+                      ref.authWithOAuthPopup("facebook", function(error, authData)     //called the the appropitate Facebook Popup login method
                                              {
                                                 if (error)
                                                 {
@@ -18,7 +23,8 @@
                                                 else
                                                 {
                                                 console.log("Authenticated successfully with payload:", authData);
-                                                    if (authData && isNewUser) {
+                                                    if (authData && isNewUser) {                //if the newly authenticated user is a brand new user of the mobile web application
+                                                                                                //then the Firebase object adds the appropiate information to the Firebase server
                                                     ref.child("users").child(authData.uid).set({
                                                                     provider: authData.provider,
                                                                     name: getName(authData)
