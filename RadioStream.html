@@ -30,7 +30,7 @@
   <li>
     <a href="#">
     <img src="">
-    <h2>Song Choice #1</h2>
+    <h2 id="Choice_1">Song Choice #1</h2>
     <p>Album - Artist</p>
      <span class="ui-li-count">25</span></a>
   </li>
@@ -39,7 +39,7 @@
   <li>
     <a href="#">
     <img src="">
-    <h2>Song Choice #1</h2>
+    <h2 id="Choice_2">Song Choice #1</h2>
     <p>Album - Artist</p>
      <span class="ui-li-count">25</span></a>
   </li>
@@ -48,68 +48,11 @@
   <li>
     <a href="#">
     <img src="">
-    <h2>Song Choice #1</h2>
-    <p>Album - Artist</p>
-     <span class="ui-li-count">25</span></a>
-  </li>
-</ul> 
-<ul data-role="listview">
-  <li>
-    <a href="#">
-    <img src="">
-    <h2>Random Choice</h2>
+    <h2 id="Random_Choice">Random Choice</h2>
 <span class="ui-li-count">25</span></a>
   </li>
 </ul> 
 
 </body>
 
-<!--......................Ignore scrpt......................................................................
- 
- 
- 
- <script>
-		
-function load_sound(track_url) {             
-        SC.initialize({
-            client_id: 'e37f3c1f5f6ba94620a84468518dc09d'
-                });
-               //alert(track_url);
-                SC.get('/resolve', {url: track_url}, function(track) {
-                    //console.log("the track id is: " + track.id);
-                    SC.stream("/tracks/" + track.id, {volume:50 } , function(sound) {
-                        console.log(sound);
-                        is_playing = true;
-                        sound.play();
-                        document.getElementById("start").onclick = function(){  
-                            if(is_playing === false){
-                                sound.resume();
-                                is_playing = true;
-                            } else if(is_playing === true){
-                                sound.pause();
-                                is_playing = false;
-                            }   
-                        };
-
-                        document.getElementById("stop").onclick = function(){  
-                          sound.stop();
-                          load_sound("https://www.soundcloud.com/chancetherapper/chain-smoker");
-                        };
-
-
-                    });
-                    
-                    
-
-                });
-            }
-            
-           
-
-function playNextSound(){
-
-  load_sound("https://soundcloud.com/dancingastronaut/kygo-dillon-francis-feat-james-hersey-coming-over-original-mix");
-}
-                       
-		</script>-->
 </html>
