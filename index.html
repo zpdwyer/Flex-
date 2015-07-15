@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!--Importing Jquery Mobile API for GUI layout of mobile web application-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Importing jquery mobile api-->
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-
-<script>
-    $(function(){
-      //When application is first opened up Facebook login authentication popup screen appears
-            $("#FacebookLogin").click(function()          {
-                      var ref = new Firebase("https://<your-firebase-app>.firebaseio.com");
-                                      //created new Firebase variable
-                      ref.authWithOAuthPopup("facebook", function(error, authData)     //called the the appropitate Facebook Popup login method
-                                             {
-                                                if (error)
-                                                {
-                                                    console.log("Login Failed!", error);
-                                                }
-                                                else
-                                                {
-                                                console.log("Authenticated successfully with payload:", authData);
-                                                    if (authData && isNewUser) {                //if the newly authenticated user is a brand new user of the mobile web application
-                                                                                                //then the Firebase object adds the appropiate information to the Firebase server
-                                                    ref.child("users").child(authData.uid).set({
-                                                                    provider: authData.provider,
-                                                                    name: getName(authData)
-                                                                                        });
-                                                    }
-                                             });
-                      });
-</script>
+<script src="http://connect.soundcloud.com/sdk-2.0.0.js"></script>
+<script src="https://cdn.firebase.com/js/client/2.2.5/firebase.js"></script>
+<script src="script.js"></script>
 </head>
 <body>
 
 <div data-role="page">
   <div data-role="header">
-    <h1>Welcome To My Homepage</h1>
-  </div>
+  <a href="#" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+  <h1>Flex</h1>
+</div>
 
-  <div data-role="main" class="ui-content">
-     <a href="#" id="FacebookLogin" data-role="button" data-theme="b">Login with Facebook</a>
-  </div>
-
-  <div data-role="footer">
-    <h1>Footer Text</h1>
-  </div>
-</div> 
+  <div id="player" align="center">
+    <img src=""></img> 
+    <h3>Song - Artist</h3>
+     <button id="start" onclick="load_sound()">play</button>
+   <button id="stop">pause/resume</button>
+         <!-- <a href="#" id="start">Start</a>
+     <a href="#" id="stop">Stop</a>-->
+     </div>
+  <ul data-role="listview">
+  <li>
+    <a href="#">
+    <img src="">
+    <h2 id="Choice_1">Song Choice #1</h2>
+    <p>Album - Artist</p>
+     <span class="ui-li-count">25</span></a>
+  </li>
+</ul> 
+<ul data-role="listview">
+  <li>
+    <a href="#">
+    <img src="">
+    <h2 id="Choice_2">Song Choice #1</h2>
+    <p>Album - Artist</p>
+     <span class="ui-li-count">25</span></a>
+  </li>
+</ul> 
+<ul data-role="listview">
+  <li>
+    <a href="#">
+    <img src="">
+    <h2 id="Random_Choice">Random Choice</h2>
+<span class="ui-li-count">25</span></a>
+  </li>
+</ul> 
 
 </body>
+
 </html>
