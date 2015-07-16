@@ -26,6 +26,7 @@ function load_sound(playlist_url) {
                                            { 
                                                  is_playing = true; 
                                                  sound.play(); 
+												 Voting_Period(is_playing);
                                                  document.getElementById("start").onclick = function() 
                                            }); 
 									Vote_Count(); 
@@ -34,9 +35,9 @@ function load_sound(playlist_url) {
 										while(num < 3)
 										{
 											var randomNum = Math.random() * (max - min) + min;
-											Song_Choices.push(randomNum);
-											load_Songs(Song_Choices); 
+											Song_Choices.push(track_IDs.getValue(randomNum));
 										}
+										load_Songs(Song_Choices); 
 									}
                                 } 
                  }); 
@@ -53,7 +54,35 @@ function load_sound(playlist_url) {
 	 document.getElementById("Choice2").innerHTML = choice2;
  }
  
+ function Voting_Period(){
+	 
+	 var userRef = new Firebase("https://<your-firebase-app>.firebaseio.com/users");
+	 var authData = ref.getAuth();
+	 var votingRef = new Firebase("https://<your-firebase-app>.firebaseio.com/songChoices");
+	 
+	 if(authData){
+		 var userID = authData.uniqueID;
+		 var votesLeftRef = userRef.child(userID + '/votesLeft');
+		 var votesLeft = votesLeftRef.val();
+		 if(votesLeft!=0) {
+			 if(document.getElementById("Choice1").onclick(function())){
+				 var choiceOneRef = votingRef.child('/Choice_1');
+				 var maxRefOne = choiceOneRef.push(1);
+			 }
+			 if(document.getElementById("Choice2").onclick(function())){
+				 var choiceTwoRef = votingRef.child('/Choice_2');
+				 var maxRefTwo = choiceOneRef.push(1);
+			 }
+			 if(document.getElementById("Random").onclick(function())){
+				 var choiceRandom = votingRef.child('/Random');
+				 var maxRefRandom = choiceOneRef.push(1);
+			 }
+		 }
+	 }
+ 
+ }
+ 
+ 
  function Vote_Count(){
 	 
- 
  }
