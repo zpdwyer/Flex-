@@ -14,9 +14,9 @@ function load_sound(playlist_url) {
                                track_IDs.push(track.id); 
                                var is_playing = false; 
 							   var nextSongs = [];
+							   
                                while(is_playing!=true) 
-                               { 
-									
+                               { 	
 									nextSongs.push(track_IDs.getValue(Song_Choices.pop())); 
 									nextSongs.push(track_IDs.getValue(Song_Choices.pop()));
 									nextSongs.push(track_IDs.getValue(Song_Choices.pop()));
@@ -26,10 +26,32 @@ function load_sound(playlist_url) {
                                            { 
                                                  is_playing = true; 
                                                  sound.play(); 
-												 Voting_Period(is_playing);
-                                                 document.getElementById("start").onclick = function() 
+												 var userRef = new Firebase("https://<your-firebase-app>.firebaseio.com/users");
+											     var authData = ref.getAuth();
+												 var votingRef = new Firebase("https://<your-firebase-app>.firebaseio.com/songChoices");
+												 if(authData){
+														var userID = authData.uniqueID;
+														var votesLeftRef = userRef.child(userID + '/votesLeft');
+														var votesLeft = votesLeftRef.val();
+														if(votesLeft!=0) {
+																if(document.getElementById("Choice1").onclick(function())){
+																		var choiceOneRef = votingRef.child('/Choice_1');
+																		var maxRefOne = choiceOneRef.push(1);
+																}
+																if(document.getElementById("Choice2").onclick(function())){
+																		var choiceTwoRef = votingRef.child('/Choice_2');
+																		var maxRefTwo = choiceOneRef.push(1);
+																}
+																if(document.getElementById("Random").onclick(function())){
+																		var choiceRandom = votingRef.child('/Random');
+																		var maxRefRandom = choiceOneRef.push(1);
+																}
+														}
+													}
+													document.getElementById("start").onclick = function() 
                                            }); 
-									Vote_Count(); 
+									var winner = Vote_Count(maxRefOne,maxRefTwo,maxRefRandom); 
+									track_ID = track_IDs.getValue(songChoices.getValue(winner)));
 									if(is_playing===false)
 									{
 										while(num < 3)
@@ -39,7 +61,8 @@ function load_sound(playlist_url) {
 										}
 										load_Songs(Song_Choices); 
 									}
-                                } 
+                            
+							   }
                  }); 
             }); 
  } 
@@ -54,7 +77,67 @@ function load_sound(playlist_url) {
 	 document.getElementById("Choice2").innerHTML = choice2;
  }
  
- function Voting_Period(){
+ function Vote_Count(maxRefOne, maxRefTwo, maxRefRandom){
+	 this.maxRefOne = maxRefOne;
+	 this.maxRefTwo = maxRefTwo;
+	 this.maxRefRandom = maxRefRandom;
+	 var voteRef = new Firebase("https://<your-firebase-app>.firebaseio.com/songChoices");
+	 var currentParent = maxRefOne.parent();
+	 var countOne=0;
+	 var countTwo=0;
+	 var countRandom=0;
+	 var winnerValue
+	 
+	 while(currentParent!=0)
+	 {  
+		 maxRefOne.remove();
+		 countOne++;
+		 currentParent = currentParent.parent();
+	 }
+	  
+	 currentParent = maxRefTwo.parent();
+	 while(currentParent!=0)
+	 {
+		 maxRefTwo.remove();
+		 countTwo++;
+		 currentParent = currentParent.parent();
+	 }
+	 currentParent = maxRefRandom.parent();
+	 while(currentParent!=0)
+	 {
+		 maxRefRandom.remove();
+		 countRandom++;
+		 currentParent = currentParent.parent();
+	 }
+	 if(countOne > countTwo)
+	 {
+		 winnerValue = 1
+		 if(countOne>countRandom)
+		 {
+			 return winnerValue;
+		 }
+		 else 
+		 {
+			 winnerValue = 3;
+			 return winnerValue; 
+		 }
+	 }
+	 else
+	 {
+		 winnerVlaue = 2
+		 if(countTwo > countRandom)
+		 {
+			 return winnerValue; 
+		 }
+		 else
+		 {
+			 winnerValue = 3
+			 return winnerValue; 
+		 }
+	 }
+	 
+ }
+ /*function Voting_Period(){
 	 
 	 var userRef = new Firebase("https://<your-firebase-app>.firebaseio.com/users");
 	 var authData = ref.getAuth();
@@ -80,9 +163,4 @@ function load_sound(playlist_url) {
 		 }
 	 }
  
- }
- 
- 
- function Vote_Count(){
-	 
- }
+ }*/
