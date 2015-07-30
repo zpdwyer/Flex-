@@ -8,7 +8,7 @@
 <script>
     $(function(){
             $("#FacebookLogin").click(function()          {
-                      var ref = new Firebase("https://<your-firebase-app>.firebaseio.com");
+                      var ref = new Firebase("https://<your-firebase-app>.firebaseio.com/users");
                       ref.authWithOAuthPopup("facebook", function(error, authData)
                                              {
                                                 if (error)
@@ -24,8 +24,10 @@
                                                                     name: getName(authData)
                                                                                         });
                                                     }
-                                             });
-                      });
+                                             }
+                                        });
+            								});
+             });
 </script>
 </head>
 <body>
