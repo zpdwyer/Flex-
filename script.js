@@ -3,7 +3,7 @@ window.onload = function load_sound() {
   	var choiceOneRef;
   	var choiceTwoRef;
   	var choiceRandom;
-	var count =0;
+    
     SC.initialize({ 
                          client_id: 'e37f3c1f5f6ba94620a84468518dc09d' 
                    }); 
@@ -12,6 +12,7 @@ window.onload = function load_sound() {
   SC.get('/resolve', { url: playlist_url }, function(set) { 
 			var track_IDs = []; 
 			var firstPlay=true;
+    	var num; 
 			$(set.tracks).each(function(i, track) {
 						track_IDs.push(track.id);
             });
@@ -22,16 +23,17 @@ window.onload = function load_sound() {
 				    var nextSongs = [];
 							   
 				    if(firstPlay!==false)
-					{
+            {
+               
 							             while(num < 3)
 										{
-											var randomNum = Math.random() * (max - min) + min;
-											Song_Choices.push(track_IDs.getValue(randomNum));
+											num = Math.random() * (max - min) + min;
+											Song_Choices.push(track_IDs.getValue(num));
 										}
 										load_Songs(Song_Choices); 
 										firstPlay=false; 
 					}
-                               while(count<==track_IDs.length) 
+                               while(count<=track_IDs.length) 
                                { 	
 									nextSongs.push(track_IDs.getValue(Song_Choices.pop())); 
 									nextSongs.push(track_IDs.getValue(Song_Choices.pop()));
@@ -40,16 +42,21 @@ window.onload = function load_sound() {
 									
 									SC.stream('/tracks/' + winner, {volume:50, onfinish:is_playing=false}, playSong(sound)); 
 									
-									var winner = Vote_Count(maxRefOne,maxRefTwo,maxRefRandom); 
+									var userID = authData.uniqueID;
+									var votesLeftRef = userRef.child(userID + '/votesLeft');
+									votesLeftRef.set(1); 
+									
+									 
                		                track_ID = {
                                              track_IDs:getValue(songChoices.getValue(winner))
                                      };
+                                
 								    if(is_playing===false)
 								    {
 									    while(num < 3)
 										{
-											var randomNum = Math.random() * (max - min) + min;
-											Song_Choices.push(track_IDs.getValue(randomNum));
+											num = Math.random() * (max - min) + min;
+											Song_Choices.push(track_IDs.getValue(num));
 										}
 										load_Songs(Song_Choices); 
 								    }
@@ -59,7 +66,7 @@ window.onload = function load_sound() {
 	}
      
 	);
-}
+};
  function load_Songs(songChoices){
 	 
 	 this.songChoices=songChoices; 
@@ -71,7 +78,58 @@ window.onload = function load_sound() {
 	 document.getElementById("Choice2").innerHTML = choice2;
  }
  
- function Vote_Count(maxRefOne, maxRefTwo, maxRefRandom){
+ 
+ function playSong(sound) 
+	{ 
+            is_playing = true; 
+            sound.play(); 
+			var userRef = new Firebase("https://<your-firebase-app>.firebaseio.com/users");
+		    var authData = ref.getAuth();
+			var votingRef = new Firebase("https://<your-firebase-app>.firebaseio.com/songChoices");
+			if(authData)
+			{
+					var userID = authData.uniqueID;
+					var votesLeftRef = userRef.child(userID + '/votesLeft');
+					var votesLeft = votesLeftRef.val();
+					if(votesLeft!==0) 
+					{
+							document.getElementById("Choice1").onclick = function()
+                            {
+								
+									choiceOneRef = votingRef.child('/Choice_1');
+									choiceOneRef.set(0);
+									upvotesRef.transaction(function (current_value)
+									{
+											return (current_value || 0) + 1;
+									});
+									votesLeft.set(0); 
+									
+							};
+							document.getElementById("Choice2").onclick = function()
+                            {
+									choiceTwoRef = votingRef.child('/Choice_2');
+									choiceTwoRef.set(0);
+									upvotesRef.transaction(function (current_value)
+									{
+											return (current_value || 0) + 1;
+									});
+									votesLeft.set(0); 
+							};
+							document.getElementById("Random").onclick = function()
+                            {
+									choiceRandom = votingRef.child('/Random');
+									choiceOneRef.set(0);
+									upvotesRef.transaction(function (current_value)
+									{
+											return (current_value || 0) + 1;
+									});
+									votesLeft.set(0); 
+						    };
+                    }
+			}
+           	
+    }
+	 /*function Vote_Count(maxRefOne, maxRefTwo, maxRefRandom){
 	 this.maxRefOne = maxRefOne;
 	 this.maxRefTwo = maxRefTwo;
 	 this.maxRefRandom = maxRefRandom;
@@ -130,42 +188,7 @@ window.onload = function load_sound() {
 		 }
 	 }
 	 
- }
- 
- function playSong(sound) 
-	{ 
-            is_playing = true; 
-            sound.play(); 
-			var userRef = new Firebase("https://<your-firebase-app>.firebaseio.com/users");
-		    var authData = ref.getAuth();
-			var votingRef = new Firebase("https://<your-firebase-app>.firebaseio.com/songChoices");
-			if(authData)
-			{
-					var userID = authData.uniqueID;
-					var votesLeftRef = userRef.child(userID + '/votesLeft');
-					var votesLeft = votesLeftRef.val();
-					if(votesLeft!==0) 
-					{
-							document.getElementById("Choice1").onclick = function()
-                            {
-									choiceOneRef = votingRef.child('/Choice_1');
-									var maxRefOne = choiceOneRef.push(1);
-							};
-							document.getElementById("Choice2").onclick = function()
-                            {
-									choiceTwoRef = votingRef.child('/Choice_2');
-									var maxRefTwo = choiceOneRef.push(1);
-							};
-							document.getElementById("Random").onclick = function()
-                            {
-									choiceRandom = votingRef.child('/Random');
-									var maxRefRandom = choiceOneRef.push(1);
-						    };
-                    }
-			}
-           
-			
-    }
+ }*/
  /*function Voting_Period(){
 	 
 	 var userRef = new Firebase("https://<your-firebase-app>.firebaseio.com/users");
@@ -193,3 +216,4 @@ window.onload = function load_sound() {
 	 }
  
  }*/
+
