@@ -3,6 +3,9 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" href="themes/Flex.min.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <script>
@@ -29,22 +32,58 @@
             								});
              });
 </script>
+
 </head>
 <body>
 
-<div data-role="page">
-  <div data-role="header">
-    <h1>Welcome To My Homepage</h1>
-  </div>
+<div data-role="page" data-theme="a">
+  
+      <div data-role="header">
+      <a href="RadioStream.html"  data-transition="flip" class="ui-btn ui-icon-audio ui-btn-icon-notext">Now Playing</a>
+      <h1>Flex</h1>
+      </div>
+  
 
   <div data-role="main" class="ui-content">
-     <a href="#" id="FacebookLogin" data-role="button" data-theme="b">Login with Facebook</a>
+	 <ul data-role="listview" data-inset="true">
+      <li>
+        <a href="#">
+        <img src="#">
+        <h2>Chill</h2>
+        <p>We recommend a packed bowl or two for this playlist</p>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+        <img src="#">
+        <h2>Country</h2>
+        <p>A beer in your in your left hand and a cowboy hat is a must</p>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+        <img src="#">
+        <h2>Party</h2>
+        <p>A compilation of your favorite modern party songs with plently of classic sing alongs</p>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+        <img src="#">
+        <h2>Study</h2>
+        <p>For the studious student</p>
+        </a>
+      </li>
+    </ul>
   </div>
-
-  <div data-role="footer">
-    <h1>Footer Text</h1>
-  </div>
-</div> 
-
+ 
 </body>
+<div data-role="footer" data-position="fixed">
+    <div data-role="navbar" data-iconpos="top">
+      <ul>
+        <li><a href="index.html" data-icon="home">Home</a></li>
+        <li><a href="tracks.html" data-transition="fade" data-icon="grid">Tracks</a></li>
+      </ul>
+    </div>
+  </div>
 </html>
