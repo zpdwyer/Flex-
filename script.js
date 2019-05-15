@@ -4,9 +4,7 @@ window.onload = function load_sound() {
     var choiceTwoRef;
     var choiceRandom;
     
-    SC.initialize({
-                  client_id: 'e37f3c1f5f6ba94620a84468518dc09d'
-                  });
+    
     
     
     SC.get('/resolve', { url: playlist_url }, function(set) {
